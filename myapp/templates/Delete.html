@@ -1,20 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-</head>
-<body>
-<div class='container mt-5'>
-    <div class="col-sm-6 text-center badge-warning" style="margin-left: 250px; border: 1px; border-radius: 10px ; padding: 10px;">
-        <h1 class="bg-primary">Do you want to delete..?</h1>
-        <form method="post" style="align-items:center;">
-            {%csrf_token%}
-            <button type="submit" class="btn btn-danger"> Confirm </button>
-            <a href="/" class="btn btn-success"> Back</a>
-        </form>
-    </div>
-</div>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Delete {{ user.name }}{% endblock %}
+
+{% block content %}
+<section class="content-card confirm-card">
+    <span class="confirm-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01"/><path d="M10.3 3.9 1.9 18.5A1.7 1.7 0 0 0 3.4 21h17.2a1.7 1.7 0 0 0 1.5-2.5L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg></span>
+    <p class="eyebrow">Please confirm</p>
+    <h1>Delete {{ user.name }}?</h1>
+    <p>This will permanently remove this person's record from your directory. This action can't be undone.</p>
+    <form method="post" class="confirm-actions">
+        {% csrf_token %}
+        <a class="button button-secondary" href="{% url 'user-list' %}">Keep person</a>
+        <button type="submit" class="button button-danger">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6"/></svg>
+            Delete person
+        </button>
+    </form>
+</section>
+{% endblock %}

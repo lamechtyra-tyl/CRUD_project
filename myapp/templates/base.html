@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7fb">
+    <title>{% block title %}People{% endblock %} · PeopleDesk</title>
+    <link rel="stylesheet" href="{% static 'myapp/styles.css' %}">
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="{% url 'user-list' %}" aria-label="PeopleDesk home">
+            <span class="brand-mark" aria-hidden="true">P</span>
+            <span>people<span class="brand-light">desk</span></span>
+        </a>
+        <nav class="top-nav" aria-label="Main navigation">
+            <a class="nav-link {% if request.resolver_match.url_name == 'user-list' %}is-active{% endif %}" href="{% url 'user-list' %}">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+                Directory
+            </a>
+        </nav>
+        <a class="button button-primary button-small top-action" href="{% url 'add-user' %}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            Add person
+        </a>
+    </header>
+
+    <main class="page-shell">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">A little more organized, every day.</footer>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

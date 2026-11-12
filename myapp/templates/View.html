@@ -1,45 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>view</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-</head>
-<body>
-<div class="container-fluid my-5">
-    <div class="w-50 m-auto p-4 bg-info ">
-        <h2 class="text-center mt-4"> User Details</h2>
-        <table class="table bg-white">
-            <tr>
-                <th>Photo</th>
-                <td><img src="/media/{{user.photo}} " class="rounded  d-block" height="100px" width="120px"></td>
-            </tr>
-            <tr>
-                <th>User name</th>
-                <td>{{user.name}}</td>
-            </tr>
+{% extends "base.html" %}
 
-            <tr>
-                <th> Email </th>
-                <td>{{user.email}}</td>
-            </tr>
-            <tr>
-                <th> Password</th>
-                <td>{{user.password}}</td>
-            </tr>
-            <tr>
-                <th>Mobile_Number</th>
-                <td>{{user.mobile_number}}</td>
-            </tr>
-            <tr>
-                <th>Date of Birth</th>
-                <td>{{user.date_of_birth}}</td>
-            </tr>
-        </table>
-    </div>
-    <div class="text-center">
-        </button><a href="/" class="btn btn-success"> Back </button></a>
-    </div>
+{% block title %}{{ user.name }}{% endblock %}
+
+{% block content %}
+<div class="detail-layout">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="{% url 'user-list' %}">Directory</a><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span>Person details</span>
+    </nav>
+    <section class="content-card detail-card">
+        <div class="profile-header">
+            {% if user.photo %}<img class="profile-photo" src="{{ user.photo.url }}" alt="{{ user.name }}">
+            {% else %}<span class="profile-photo avatar-fallback" aria-hidden="true">{{ user.name|first|upper }}</span>{% endif %}
+            <div><p class="eyebrow">Contact profile</p><h1>{{ user.name }}</h1><p>{{ user.email }}</p></div>
+        </div>
+        <dl class="detail-list">
+            <div class="detail-row"><dt>Full name</dt><dd>{{ user.name }}</dd></div>
+            <div class="detail-row"><dt>Email address</dt><dd>{{ user.email }}</dd></div>
+            <div class="detail-row"><dt>Mobile number</dt><dd>{{ user.mobile_number }}</dd></div>
+            <div class="detail-row"><dt>Date of birth</dt><dd>{{ user.date_of_birth }}</dd></div>
+        </dl>
+        <div class="detail-actions">
+            <a class="button button-secondary" href="{% url 'user-list' %}">Back to directory</a>
+            <a class="button button-primary" href="{% url 'edit-user' user.id %}">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5 4 4M4 20l4-.8L19 8a2.1 2.1 0 0 0-3-3L5 16l-1 4Z"/></svg>
+                Edit details
+            </a>
+        </div>
+    </section>
 </div>
-</body>
-</html>
+{% endblock %}

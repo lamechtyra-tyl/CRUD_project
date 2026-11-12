@@ -32,7 +32,7 @@ def DeleteUser(request,eid=None):
     if  request.method=="POST":
          one_rec.delete()
          return redirect('/')
-    return render(request,'Delete.html')
+    return render(request,'Delete.html', {'user': one_rec})
 
 def ViewUser(request,eid=None):
     mydict={}
